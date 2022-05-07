@@ -160,3 +160,31 @@
                 (interpreto body `((,x . ,arg) . ,envo) o)))))) 
               ; application
 
+; -------------------------------------
+; natural numbers
+
+(define nato
+    (λ (n)
+        (conde
+            ((== n 'z))
+            ((fresh (n-1)
+                (== n `(,'succ ,n-1))
+                (nato n-1))))))
+
+(define pluso
+    (λ (n m o)
+        (conde
+            ((== n 'z) (== m o))
+            ((fresh (n-1 o-1)
+                (== n `(,'succ ,n-1))
+                (== o `(,'succ ,o-1))
+                (pluso n-1 m o-1))))))
+
+; (define mulo
+;     (λ (n m o)
+;         (conde
+;             ((== n '0) (== '0 o))
+;             ((fresh (n-1 o^)
+;                 (== n `(,'s ,n-1))
+;                 (== o `(+ ,m ,o^))
+;                 (mulo n-1 m o^))))))
